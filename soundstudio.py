@@ -10,6 +10,7 @@ db = SQLAlchemy(app)
 
 class Signing(db.Model):
     id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(50), nullable=False)
     phone = db.Column(db.String(50), nullable=False)
     describe = db.Column(db.Text, nullable=False)
     date = db.Column(db.DateTime, default=datetime.utcnow)
@@ -27,9 +28,9 @@ def studio():
     return render_template('studio.html')
 
 
-@app.route('/create_order')
-def create_order():
-    return render_template('create_order.html')
+@app.route('/send_demo')
+def send_demo():
+    return render_template('send_demo.html')
 
 
 if __name__ == '__main__':

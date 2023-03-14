@@ -1,0 +1,20 @@
+{% extends 'base_studio.html' %}
+{% block title %}
+Головна сторінка
+{% endblock %}
+{% block body %}
+<div class="container">
+    <h2>Запис клієнта</h2>
+    <form method="post"></form>
+        <input type="text" name="name" title="name" class="form-control" placeholder="Ваше ім'я"><br>
+        <input name="phone" title="phone" class="form-control" placeholder="Ваш телефон"><br>
+        <input name="email" title="email" class="form-control" placeholder="Ваша електронна пошта"><br>
+        <input type="file" name="file" class="custom-file-upload" value="Завантажити">
+    <label class="custom-file-upload">
+    <input type="file"/>
+    Завантажити
+    </label>
+        <input type="submit" class="btn btn submit" value="Відправити">
+
+</div>
+{% endblock %}
