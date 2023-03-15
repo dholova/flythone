@@ -6,9 +6,66 @@ body {
 input[type="file"] {
     display: none;
 }
-.custom-file-upload {
+    .custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
     padding: 6px 12px;
     cursor: pointer;
+
+}
+/*Бокова панель студії*/
+
+.sidebar {
+    width: 200px;
+    height: 100%;
+    background-color: 0;
+    color: #fff;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    padding: 20px;
+}
+/*Увесь блок контенку студії*/
+
+.main-content {
+    margin-left: 200px;
+    margin-top: 200px;
+
+}
+/*Nav bar*/
+
+.topnavbar {
+    float: "left";
+    margin-right: "10px";
+    position: fixed;
+    background-color: 0;
+    width: 100%;
+}
+
+/* Лого у верхньому лівому куті*/
+.logo-top {
+    float: left;
+    margin-right: 10px;
+    padding-right: 60rem!important;
+}
+
+
+/* Шрифт для обладнання*/
+.font-for-eq {
+    font-size: 56px;
+    font-family: 'Common Pixel', sans-serif;
+}
+.title-studio {
+ font-size: 46px;
+    font-family: 'Common Pixel', sans-serif;
+}
+
+
+.font-for-nb {
+    font-size: 14px;
+    font-family: 'Common Pixel', sans-serif;
+}
+
+p.btn {
+background-color: #0813ff;
 }

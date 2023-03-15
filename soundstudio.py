@@ -4,6 +4,8 @@ from datetime import datetime
 
 
 app = Flask(__name__)
+app.static_folder = 'static'
+
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///studio.db'
 db = SQLAlchemy(app)
 
@@ -25,7 +27,24 @@ def home():
 
 @app.route('/studio')
 def studio():
-    return render_template('studio.html')
+    return render_template('studio/studio.html')
+
+
+@app.route('/equipment')
+def equipment():
+    return render_template('studio/equipment.html')
+
+@app.route('/works')
+def works():
+    return render_template('studio/works.html')
+
+@app.route('/price')
+def price():
+    return render_template('studio/price.html')
+
+@app.route('/contacts')
+def contacts():
+    return render_template('studio/contacts.html')
 
 
 @app.route('/send_demo', methods=['POST', 'GET'])
@@ -43,7 +62,7 @@ def send_demo():
         except:
             return 'При відправці файлу виникла помилка'
     else:
-        return render_template('send_demo.html')
+        return render_template('studio/send_demo.html')
 
 
 if __name__ == '__main__':
