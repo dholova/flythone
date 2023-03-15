@@ -16,7 +16,7 @@ input[type="file"] {
 /*Бокова панель студії*/
 
 .sidebar {
-    width: 200px;
+    width: 290px;
     height: 100%;
     background-color: 0;
     color: #fff;
@@ -28,7 +28,7 @@ input[type="file"] {
 /*Увесь блок контенку студії*/
 
 .main-content {
-    margin-left: 200px;
+    margin-left: 350px;
     margin-top: 200px;
 
 }
@@ -46,27 +46,52 @@ input[type="file"] {
 .logo-top {
     float: left;
     margin-right: 10px;
-    padding-right: 60rem!important;
+    padding-right: 55rem!important;
 }
 
 
 /* Шрифт для обладнання*/
+
 .font-for-eq {
-    font-size: 56px;
-    font-family: 'Common Pixel', sans-serif;
+    font-size: 26px;
+font-family: 'Press Start 2P', sans-serif;
 }
+
+/* Шрифт для заголовків*/
+.font-for-titles {
+    font-size: 26px;
+font-family: 'Press Start 2P', sans-serif;
+}
+/*
 .title-studio {
  font-size: 46px;
     font-family: 'Common Pixel', sans-serif;
 }
 
-
 .font-for-nb {
-    font-size: 14px;
-    font-family: 'PT Mono', monospace;
-
+    font-size: 4px;
 }
+*/
+
+
+/* Шрифт для кнопок у навбарі*/
 
 p.btn {
-background-color: #0813ff;
+    background-color: #0813ff;
+    font-family: 'Press Start 2P', sans-serif;
+    color: white;
+    font-size: 10px;
+}
+
+/* Шрифт для кнопок у боковій панелі*/
+.nav-link {
+font-family: 'Press Start 2P', sans-serif;
+font-size: 10px;
+}
+
+
+/* не знаю поки шо*/
+
+.container {
+margin-left: 350px
 }
