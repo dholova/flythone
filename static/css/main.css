@@ -63,7 +63,8 @@ input[type="file"] {
 
 .font-for-nb {
     font-size: 14px;
-    font-family: 'Common Pixel', sans-serif;
+    font-family: 'PT Mono', monospace;
+
 }
 
 p.btn {
