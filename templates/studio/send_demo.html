@@ -4,17 +4,48 @@
 {% endblock %}
 {% block body %}
 <div class="container">
-    <h2>Запис клієнта</h2>
-    <form method="post"></form>
-        <input type="text" name="name" title="name" class="form-control" placeholder="Ваше ім'я"><br>
-        <input name="phone" title="phone" class="form-control" placeholder="Ваш телефон"><br>
-        <input name="email" title="email" class="form-control" placeholder="Ваша електронна пошта"><br>
-        <input type="file" name="file" class="custom-file-upload" value="Завантажити">
-    <label class="custom-file-upload">
-    <input type="file"/>
-    Завантажити
-    </label>
-        <input type="submit" class="btn btn submit" value="Відправити">
+    <p class="font-for-titles">Надіслати демо</p>
+<form method="POST" action="/send_demo" enctype="multipart/form-data">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Ваше ім'я"><br>
+        <input type="text" name="phone" id="phone" class="form-control" placeholder="Ваш телефон"><br>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Ваша електронна пошта"><br>
+<!--        <input type="file" name="file" class="btn btn-warning">-->
+<!--        <input type="file" class="btn btn-submit" value="Завантажити">-->
+<!--        <input type="file" name="file" class="custom-file-upload" value="Вибрати">-->
+<!--        <label class="custom-file-upload" name="file">-->
+    <!-- HTML-розмітка для кастомної кнопки -->
+<label for="file" class="custom-file-upload" name="file">
 
+<input type="file" name="file" id="file">
+</label>
+<!-- CSS-стилі для кастомної кнопки -->
+<style>
+    /* Приховати стандартну кнопку вибору файлу */
+    input[type="file"] {
+display:none;
+    }
+
+    /* Стилізувати кастомну кнопку */
+    .custom-file-upload {
+        display: inline-block;
+        padding: 6px 12px;
+        cursor: pointer;
+        background-color: #0813FF;
+            font-family: 'Press Start 2P', sans-serif;
+    font-size: 10px;
+
+        color: #fff;
+        border-radius: 14px;
+    }
+</style>
+
+
+<!--</label>-->
+<!--    <label type="file" class="custom-file-upload" name="file">-->
+<!--    <input type="file" />-->
+<!--    Завантажити-->
+<!--    </label>-->
+        <input type="submit" class="custom-file-upload" value="Відправити">
+</form>
 </div>
 {% endblock %}

@@ -3,10 +3,8 @@ body {
 }
 
 /*Кнопка завантажити*/
-input[type="file"] {
-    display: none;
-}
-    .custom-file-upload {
+
+.custom-file-upload {
     border: 1px solid #ccc;
     display: inline-block;
     padding: 6px 12px;
@@ -55,12 +53,17 @@ input[type="file"] {
 .font-for-eq {
     font-size: 26px;
 font-family: 'Press Start 2P', sans-serif;
+color: #1ffa02;
+-webkit-text-stroke: 1px red;
+
 }
 
 /* Шрифт для заголовків*/
 .font-for-titles {
-    font-size: 26px;
+    font-size: 46px;
 font-family: 'Press Start 2P', sans-serif;
+color: #1ffa02;
+-webkit-text-stroke: 1px red;
 }
 /*
 .title-studio {
@@ -95,3 +98,36 @@ font-size: 10px;
 .container {
 margin-left: 350px
 }
+
+
+
+
+.custom-file-upload::before {
+  content: 'Вибрати файл';
+  display: inline-block;
+  background: #0813FF;
+  padding: 6px 12px;
+  cursor: pointer;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+}
+
+.custom-file-upload:hover::before {
+  border-color: #777;
+}
+
+.custom-file-upload:active::before {
+  background: #eee;
+}
+
+.form input[type=file], form label[type=file] {
+    position: absolute;
+display: none;
+}
+.form-control {
+    display: block;
+    width: 1px;
+    }
