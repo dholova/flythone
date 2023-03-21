@@ -22,12 +22,12 @@
         src: url('/static/fonts/pressstart2p.ttf');
     }
 </style>
-<!--        <style>-->
-<!--    @font-face {-->
-<!--        font-family: 'Rampart One';-->
-<!--        src: url('/static/fonts/rampartone.ttf');-->
-<!--    }-->
-<!--</style>-->
+        <style>
+    @font-face {
+        font-family: 'Rampart One';
+        src: url('/static/fonts/rampartone.ttf');
+    }
+</style>
 
 
 </head>
@@ -44,16 +44,17 @@
               </div>
 
               <ul class="nav col-12 col-lg-auto my-2 justify-content-center my-md-0 text-small-white">
-                <li>
-                  <a href="/studio" class="nav-link text-secondary-white">
-                    <p class="btn"> Студія</p>
-                  </a>
-                </li>
+<!--                <li>-->
+<!--                  <a href="/studio" class="nav-link text-secondary-white">-->
+<!--                    <p class="btn"> Студія</p>-->
+<!--                  </a>-->
+<!--                </li>-->
                 <li>
                   <a href="/send_demo" class="nav-link text-secondary-white">
                       <p class="btn font-for-nb"> Відправити демо</p>
                   </a>
                 </li>
+
 
 
               </ul>
@@ -62,7 +63,6 @@
         </header>
         <div class="main-content">
     {% block body %}{% endblock %}
-<div class="container">
     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
         <div class="col mb-3">
           <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
@@ -98,7 +98,7 @@
     <hr>
     <ul class="nav nav-pills flex-column mb-auto">
       <li class="nav-item">
-  <a href="{{ url_for('studio') }}" class="nav-link {% if request.path == url_for('studio') %}active{% else %}text-#0a33b0{% endif %}">
+  <a href="{{ url_for('studio') }}" class="nav-link {% if request.path == url_for('studio') %}active{% else %}text-#0813ff{% endif %}">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>
           Студія
         </a>
@@ -110,7 +110,7 @@
         </a>
       </li>
       <li>
-        <a href="{{ url_for('works') }}" class="nav-link {% if request.path == url_for('works') %}active{% else %}text-#0a33b0{% endif %}">
+        <a href="{{ url_for('works') }}" class="nav-link {% if request.path == url_for('works') %}active{% else %}text-#0813ff{% endif %}">
           <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>
           Наші роботи
         </a>
@@ -131,6 +131,5 @@
     <hr>
 </div>
 </div>
-    </div>
 </body>
 </html>

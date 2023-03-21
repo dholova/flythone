@@ -1,22 +1,17 @@
 {% extends 'base_studio.html' %}
 {% block title %}
-Головна сторінка
+Відправити демо
 {% endblock %}
 {% block body %}
 <div class="container">
     <p class="font-for-titles">Надіслати демо</p>
 <form method="POST" action="/send_demo" enctype="multipart/form-data">
-        <input type="text" name="name" id="name" class="form-control" placeholder="Ваше ім'я"><br>
-        <input type="text" name="phone" id="phone" class="form-control" placeholder="Ваш телефон"><br>
-        <input type="text" name="email" id="email" class="form-control" placeholder="Ваша електронна пошта"><br>
-<!--        <input type="file" name="file" class="btn btn-warning">-->
-<!--        <input type="file" class="btn btn-submit" value="Завантажити">-->
-<!--        <input type="file" name="file" class="custom-file-upload" value="Вибрати">-->
-<!--        <label class="custom-file-upload" name="file">-->
-    <!-- HTML-розмітка для кастомної кнопки -->
-<label for="file" class="custom-file-upload" name="file">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Ваше ім'я" required><br>
+        <input type="text" name="phone" id="phone" class="form-control" placeholder="Ваш телефон" required><br>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Ваша електронна пошта"required ><br>
+<label for="file" class="custom-file-upload" name="file" required>
 
-<input type="file" name="file" id="file">
+<input type="file" name="file" id="file" required>
 </label>
 <!-- CSS-стилі для кастомної кнопки -->
 <style>
@@ -26,16 +21,9 @@ display:none;
     }
 
     /* Стилізувати кастомну кнопку */
-    .custom-file-upload {
-        display: inline-block;
-        padding: 6px 12px;
-        cursor: pointer;
-        background-color: #0813FF;
-            font-family: 'Press Start 2P', sans-serif;
-    font-size: 10px;
 
-        color: #fff;
-        border-radius: 14px;
+    .custom-file-upload {
+
     }
 </style>
 
