@@ -9,8 +9,8 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = ''  # введите свой адрес электронной почты здесь
-app.config['MAIL_PASSWORD'] = ''  # введите пароль
+app.config['MAIL_USERNAME'] = 'afolenko1991@gmail.com'  # введите свой адрес электронной почты здесь
+app.config['MAIL_PASSWORD'] = 'rhwyscthqxxzvknk'  # введите пароль
 db = SQLAlchemy(app)
 mail = Mail(app)
 class SendDemo(db.Model):
