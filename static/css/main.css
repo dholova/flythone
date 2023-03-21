@@ -2,15 +2,7 @@ body {
     background: blue;
 }
 
-/*Кнопка завантажити*/
 
-.custom-file-upload {
-    border: 1px solid #ccc;
-    display: inline-block;
-    padding: 6px 12px;
-    cursor: pointer;
-
-}
 /*Бокова панель студії*/
 
 .sidebar {
@@ -44,7 +36,7 @@ body {
 .logo-top {
     float: left;
     margin-right: 10px;
-    padding-right: 50rem!important;
+    padding-right: 63rem!important;
 }
 
 
@@ -55,8 +47,18 @@ body {
 font-family: 'Press Start 2P', sans-serif;
 color: #1ffa02;
 -webkit-text-stroke: 1px red;
-
 }
+
+
+/* Шрифт для тексту*/
+
+.font-for-text {
+font-size: 12px;
+font-family: 'Press Start 2P', sans-serif;
+color: black;
+background-color: white;
+}
+
 
 /* Шрифт для заголовків*/
 .font-for-titles {
@@ -65,16 +67,13 @@ font-family: 'Press Start 2P', sans-serif;
 color: #1ffa02;
 -webkit-text-stroke: 1px red;
 }
-/*
-.title-studio {
- font-size: 46px;
-    font-family: 'Common Pixel', sans-serif;
-}
 
 .font-for-nb {
     font-size: 4px;
+    color: #1ffa02;
+    background-color: white;
 }
-*/
+
 
 
 /* Шрифт для кнопок у навбарі*/
@@ -96,38 +95,52 @@ font-size: 10px;
 /* не знаю поки шо*/
 
 .container {
-margin-left: 350px
+
+  max-width: 100%;
+  height: 100%;
+  /*background: #0813ff;*/
+  background: #343BBF;
+  border-radius: 80% 0 0 0;
+  }
+
+/*Кнопка завантажити 1*/
+
+.custom-file-upload {
+
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+
 }
-
-
-
+/* Кнопка завантажити 2*/
 
 .custom-file-upload::before {
   content: 'Вибрати файл';
-  display: inline-block;
-  background: #0813FF;
-  padding: 6px 12px;
-  cursor: pointer;
+    display: inline-block;
+        padding: 12px 12px;
+        cursor: pointer;
+        background-color: #0813FF;
+        font-family: 'Press Start 2P', sans-serif;
+        font-size: 10px;
+
+        color: #fff;
+        border-radius: 14px;
   white-space: nowrap;
   -webkit-user-select: none;
   -moz-user-select: none;
   -ms-user-select: none;
   user-select: none;
-}
 
-.custom-file-upload:hover::before {
-  border-color: #777;
 }
+/* Кнопка відправити на сторінці відправки демо*/
+        input.custom-file-upload {
+        display: inline-block;
+        padding: 12px 12px;
+        cursor: pointer;
+        background-color: #0813FF;
+        font-family: 'Press Start 2P', sans-serif;
+        font-size: 10px;
 
-.custom-file-upload:active::before {
-  background: #eee;
-}
-
-.form input[type=file], form label[type=file] {
-    position: absolute;
-display: none;
-}
-.form-control {
-    display: block;
-    width: 1px;
+        color: #fff;
+        border-radius: 14px;
     }
