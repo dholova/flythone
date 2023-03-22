@@ -38,12 +38,6 @@ def home():
     return render_template('home.html')
 
 
-@app.route('/names')
-def names():
-    demos = SendDemo.query.order_by(SendDemo.date).all()
-    return render_template('names.html', demos=demos)
-
-
 @app.route('/studio')
 def studio():
     return render_template('studio/studio.html')
@@ -98,6 +92,11 @@ def send_demo():
             return "File extension not allowed, please select an MP3 or WAV file."
     else:
         return render_template('studio/send_demo.html')
+
+@app.route('/showroom')
+def showroom():
+    return render_template('showroom/showroom.html')
+
 
 
 
