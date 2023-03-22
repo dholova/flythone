@@ -18,7 +18,7 @@ body {
 /*Увесь блок контенку студії*/
 
 .main-content {
-    margin-left: 150px;
+    margin-left: 50px;
     margin-top: 200px;
 
 }
@@ -27,22 +27,23 @@ body {
 .topnavbar {
     float: "left";
     margin-right: "10px";
-    margin-top: -25px;
+    margin-top: 25px;
     position: fixed;
     background-color: 0;
     font-size: 19px;
     font-family: 'Rampart One', sans-serif;
 
 
-    width: 100%;
-    height: 95px;
+    height: 195px;
 }
 
 /* Лого у верхньому лівому куті*/
 .logo-top {
+    position: fixed;
+    background-color: #fcf8eb;
     float: left;
-    margin-right: 10px;
-    padding-right: 63rem!important;
+    margin-right: 5px;
+    padding-right: 90rem!important;
 }
 
 
@@ -70,9 +71,9 @@ color:yellow;
 /* Шрифт для заголовків*/
 .font-for-titles {
     font-size: 46px;
-font-family: 'Rampart One', sans-serif;
-color: #1ffa02;
--webkit-text-stroke: 1px red;
+font-family: 'Plup', sans-serif;
+color: #f2e751;
+-webkit-text-stroke: 1px white;
 }
 
 .font-for-nb {
@@ -94,11 +95,15 @@ p.btn {
 
 /* Шрифт для кнопок у боковій панелі*/
 .nav-link {
-font-family: 'Rampart One', sans-serif;
-font-size: 10px;
+font-family: 'Plup', sans-serif;
+font-size: 1px;
 
 }
+a.nav-link {
+font-size: 35px;
+color: #f2e751;
 
+}
 
 /* не знаю поки шо*/
 
