@@ -1,0 +1,13 @@
+{% extends 'base_showroom.html' %}
+{% block title %}
+Шоурум
+{% endblock %}
+{% block body %}
+
+<div class="container">
+    <p class="font-for-titles">Шоурум</p>
+
+    <img src="{{ url_for('static', filename='img/showroom/showroom photo.jpg') }}" alt="" width="520" height="460">
+    <p class="font-for-eq">Шоурум на вул. В'ячеслава Липинського 12</p>
+</div>
+{% endblock %}

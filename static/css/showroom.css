@@ -1,0 +1,155 @@
+body {
+    background: blue;
+}
+
+
+/*Бокова панель студії*/
+
+.sidebar {
+    width: 290px;
+    height: 100%;
+    background-color: 0;
+    color: #fff;
+    position: fixed;
+    top: 100px;
+    left: 0;
+    padding: 20px;
+}
+/*Увесь блок контенку студії*/
+
+.main-content {
+    margin-left: 150px;
+    margin-top: 200px;
+
+}
+/*Nav bar*/
+
+.topnavbar {
+    float: "left";
+    margin-right: "10px";
+    margin-top: 25px;
+    position: fixed;
+    background-color: 0;
+    font-size: 19px;
+    font-family: 'Rampart One', sans-serif;
+
+
+    width: 100%;
+    height: 95px;
+}
+
+/* Лого у верхньому лівому куті*/
+.logo-top {
+    float: left;
+    margin-right: 10px;
+    padding-right: 63rem!important;
+}
+
+
+/* Шрифт для обладнання*/
+
+.font-for-eq {
+    font-size: 26px;
+font-family: 'Press Start 2P', sans-serif;
+color: #1ffa02;
+-webkit-text-stroke: 1px red;
+}
+
+
+/* Шрифт для тексту*/
+
+.font-for-text {
+font-size: 12px;
+font-family: 'Press Start 2P', sans-serif;
+color: black;
+background-color: white;
+color:yellow;
+}
+
+
+/* Шрифт для заголовків*/
+.font-for-titles {
+    font-size: 46px;
+font-family: 'Rampart One', sans-serif;
+color: #1ffa02;
+-webkit-text-stroke: 1px red;
+}
+
+.font-for-nb {
+    font-size: 4px;
+    color: #1ffa02;
+    background-color: white;
+}
+
+
+
+/* Шрифт для кнопок у навбарі*/
+
+p.btn {
+    background-color: #0813ff;
+    font-family: 'Press Start 2P', sans-serif;
+    color: white;
+    font-size: 10px;
+}
+
+/* Шрифт для кнопок у боковій панелі*/
+.nav-link {
+font-family: 'Rampart One', sans-serif;
+font-size: 10px;
+
+}
+
+
+/* не знаю поки шо*/
+
+.container {
+
+  max-width: 100%;
+  height: 100%;
+  /*background: #0813ff;*/
+  background: #343BBF;
+  border-radius: 80% 0 0 0;
+  }
+
+/*Кнопка завантажити 1*/
+
+.custom-file-upload {
+
+    display: inline-block;
+    padding: 6px 12px;
+    cursor: pointer;
+
+}
+/* Кнопка завантажити 2*/
+
+.custom-file-upload::before {
+  content: 'Вибрати файл';
+    display: inline-block;
+        padding: 12px 12px;
+        cursor: pointer;
+        background-color: #0813FF;
+        font-family: 'Press Start 2P', sans-serif;
+        font-size: 10px;
+
+        color: #fff;
+        border-radius: 14px;
+  white-space: nowrap;
+  -webkit-user-select: none;
+  -moz-user-select: none;
+  -ms-user-select: none;
+  user-select: none;
+
+}
+/* Кнопка відправити на сторінці відправки демо*/
+        input.custom-file-upload {
+        display: inline-block;
+        padding: 12px 12px;
+        cursor: pointer;
+        background-color: #0813FF;
+        font-family: 'Press Start 2P', sans-serif;
+        font-size: 10px;
+
+        color: #fff;
+        border-radius: 14px;
+    }
+
