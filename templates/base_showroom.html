@@ -32,27 +32,39 @@
 
 </head>
 <body>
-
-<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">
-
-        <div class="px-3 py-2 text-bg-white">
- <div class="logo-top">
+<div class="container">
     <a href="/"><img src="{{ url_for('static', filename='img/showroom/flythone_clo_logo.png') }}" alt="" width="152" height="92"></a>
-              </div>
-                   <div class="topnavbar">
+    <header class="d-flex justify-content-center py-3">
 
-      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">
-        <li><a href="#" class="nav-link px-2 link-secondary">Шоурум</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Доставка</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Контакти</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Про нас</a></li>
-        <li><a href="#" class="nav-link px-2 link-dark">Запитання</a></li>
+      <ul class="nav nav-pills">
+        <li class="nav-item"><a href="#" class="nav-link active" aria-current="page">Home</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Features</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">Pricing</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">FAQs</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">About</a></li>
       </ul>
-
-        </div>
-                                   </div>
-
     </header>
+  </div>
+<!--<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">-->
+
+<!--        <div class="px-3 py-2 text-bg-white">-->
+
+<!--                   <div class="topnavbar">-->
+
+<!--                        <div class="text-top">-->
+
+<!--      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">-->
+<!--        <li><a href="#" class="nav-link px-2 link-secondary">Шоурум</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2 link-dark">Доставка</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2 link-dark">Контакти</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2 link-dark">Про нас</a></li>-->
+<!--        <li><a href="#" class="nav-link px-2 link-dark">Запитання</a></li>-->
+<!--      </ul>-->
+<!--</div>-->
+<!--        </div>-->
+<!--                                   </div>-->
+
+<!--    </header>-->
 
         <div class="main-content">
     {% block body %}{% endblock %}
