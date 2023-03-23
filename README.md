@@ -1,1 +1,1 @@
-Site for recording studio "Flythone" with Flask
+Site for "Flythone" cultural space with Flask
