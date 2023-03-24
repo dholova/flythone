@@ -95,8 +95,17 @@ def send_demo():
 
 @app.route('/showroom')
 def showroom():
-    return render_template('showroom/showroom.html')
+    return render_template('showroom/about_showroom.html')
 
+
+@app.route('/store')
+def store():
+    return render_template('showroom/store.html')
+
+
+@app.route('/about_showroom')
+def about_showroom():
+    return render_template('showroom/about_showroom.html')
 
 
 

@@ -1,0 +1,58 @@
+{% extends 'base_showroom.html' %}
+{% block title %}
+Шоурум
+{% endblock %}
+{% block body %}
+<!--<div class="main-content">-->
+<div class="container">
+    <p class="font-for-titles">Стор</p>
+    <div class="position">
+        <div class="product-photo">
+            <a href="/"><img src="{{ url_for('static', filename='img/showroom/t-shirt1.jpg') }}" alt="" width="100%" height="80%"></a>
+        </div>
+        <div class="product-describe">
+            <p>bla bla blaaaa</p>
+        </div>
+    </div>
+    <div class="position" >
+        <div class="product-photo">
+            <a href="/"><img src="{{ url_for('static', filename='img/showroom/t-shirt2.jpg') }}" alt="" width="100%" height="80%"></a>
+        </div>
+
+        <div class="product-describe">
+            <p>bla bla blaaaa</p>
+        </div>
+
+    </div>
+    <div class="position" >
+        <div class="product-photo">
+            <a href="/"><img src="{{ url_for('static', filename='img/showroom/t-shirt2.jpg') }}" alt="" width="100%" height="80%"></a>
+        </div>
+
+        <div class="product-describe">
+            <p>bla bla blaaaa</p>
+        </div>
+
+    </div>
+    <div class="position" >
+        <div class="product-photo">
+            <a href="/"><img src="{{ url_for('static', filename='img/showroom/t-shirt2.jpg') }}" alt="" width="100%" height="80%"></a>
+        </div>
+        <div class="product-describe">
+            <p>bla bla blaaaa</p>
+        </div>
+
+    </div>
+    <div class="position" >
+        <div class="product-photo">
+            <a href="/"><img src="{{ url_for('static', filename='img/showroom/t-shirt2.jpg') }}" alt="" width="100%" height="80%"></a>
+        </div>
+        <div class="product-describe">
+            <p>bla bla blaaaa</p>
+        </div>
+
+    </div>
+<!--</div>-->
+</div>
+
+{% endblock %}

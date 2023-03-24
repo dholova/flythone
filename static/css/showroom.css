@@ -21,13 +21,14 @@ body {
     margin-left: 50px;
     margin-top: 200px;
 
+
 }
 /*Nav bar*/
 
 .topnavbar {
     float: "left";
-    margin-right: "10px";
-    margin-top: 25px;
+    margin-right: 0;
+    margin-top: 10px;
     position: fixed;
     background-color: 0;
     font-size: 19px;
@@ -71,8 +72,8 @@ color:yellow;
 /* Шрифт для заголовків*/
 .font-for-titles {
     font-size: 46px;
-font-family: 'Shoebox-ToTheLeft', sans-serif;
-color: #f2e751;
+font-family: 'Rampart One', sans-serif;
+color: #343BBF;
 -webkit-text-stroke: 1px white;
 }
 
@@ -95,13 +96,13 @@ p.btn {
 
 /* Шрифт для кнопок у боковій панелі*/
 .nav-link {
-font-family: 'Plup', sans-serif;
+font-family: 'Rampart One', sans-serif;
 font-size: 1px;
 
 }
 a.nav-link {
-font-size: 35px;
-color: #f2e751;
+font-size: 38px;
+color: #ba8116;
 
 }
 
@@ -158,3 +159,15 @@ color: #f2e751;
         border-radius: 14px;
     }
 
+.position {
+ background: 0;
+    float: left;
+
+    width: 20%;
+    padding-bottom: 0;
+    margin: 1.66%;
+}
+footer {
+
+padding: 0 0 200px 100 px;
+}

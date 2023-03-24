@@ -30,8 +30,8 @@
 </style>
             <style>
     @font-face {
-        font-family: 'Shoebox-ToTheLeft';
-        src: url('/static/fonts/Shoebox-ToTheLeft.otf');
+        font-family: 'Ramp';
+        src: url('/static/fonts/Ramp.otf');
         font-size: 30px;
     }
 </style>
@@ -47,11 +47,11 @@
       </div>
         <div class="topnavbar">
             <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link" aria-current="page">ШОУРУМ</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">доставка</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">контакти</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">про нас</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">запитання</a></li>
+        <li class="nav-item"><a href="#" class="nav-link" aria-current="page">шоурум</a></li>
+        <li class="nav-item"><a href="/store" class="nav-link" aria-current="page">стор</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">делiверi</a></li>
+        <li class="nav-item"><a href="#" class="nav-link">контактc</a></li>
+        <li class="nav-item"><a href="/about_showroom" class="nav-link">ебаут</a></li>
       </ul>
             </div>
     </header>
@@ -79,6 +79,7 @@
 
         <div class="main-content">
     {% block body %}{% endblock %}
+        </div>
     <footer class="row row-cols-1 row-cols-sm-2 row-cols-md-5 py-5 my-5 border-top">
         <div class="col mb-3">
           <a href="/" class="d-flex align-items-center mb-3 link-dark text-decoration-none">
@@ -96,11 +97,11 @@
         <div class="col mb-3">
           <p class="font-for-eq">Навігація</p>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="/studio" class="nav-link p-0 text-muted-#0a33b0">Студія</a></li>
-            <li class="nav-item mb-2"><a href="/equipment" class="nav-link p-0 text-muted-#0a33b0">Обладнання</a></li>
-            <li class="nav-item mb-2"><a href="/works" class="nav-link p-0 text-muted-#0a33b0">Наші роботи</a></li>
-            <li class="nav-item mb-2"><a href="/price" class="nav-link p-0 text-muted-#0a33b0">Ціни</a></li>
-            <li class="nav-item mb-2"><a href="/contacts" class="nav-link p-0 text-muted-#0a33b0">Контакти</a></li>
+            <li class="nav-item mb-2"><a href="#" class="bottom-nav-link p-0 text-muted-#0a33b0">шоурум</a></li>
+            <li class="nav-item mb-2"><a href="#" class="bottom-nav-link p-0 text-muted-#0a33b0">стор</a></li>
+            <li class="nav-item mb-2"><a href="#" class="bottom-nav-link p-0 text-muted-#0a33b0">доставка</a></li>
+            <li class="nav-item mb-2"><a href="#" class="bottom-nav-link p-0 text-muted-#0a33b0">контакти</a></li>
+            <li class="nav-item mb-2"><a href="/about_showroom" class="bottom-nav-link p-0 text-muted-#0a33b0">про нас</a></li>
           </ul>
         </div>
       </footer>
@@ -146,6 +147,6 @@
 <!--    </ul>-->
 <!--    <hr>-->
 <!--</div>-->
-</div>
+
 </body>
 </html>
