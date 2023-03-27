@@ -1,0 +1,16 @@
+{% extends 'base_showroom.html' %}
+{% block title %}
+Шоурум
+{% endblock %}
+{% block body %}
+<p class="font-for-titles">додати товар</p>
+<div class="container">
+    <form method="POST" action="/add_item">
+        <input type="text" name="name" id="name" class="form-control" placeholder="name" required><br>
+        <input type="text" name="size" id="size" class="form-control" placeholder="size" required><br>
+        <input type="text" name="price" id="price" class="form-control" placeholder="price" required><br>
+        <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity" required><br>
+        <input type="submit" class="btn btn-success" value="Додати">
+    </form>
+</div>
+{% endblock %}
