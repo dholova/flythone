@@ -1,9 +1,11 @@
-from flask import Flask, render_template, request, redirect
+from flask import Flask, render_template, request, redirect, url_for, session
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 import magic
-from werkzeug.security import generate_password_hash
+from werkzeug.security import generate_password_hash, check_password_hash
+
 app = Flask(__name__)
+app.secret_key = 'my_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
 app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
@@ -34,11 +36,19 @@ class User(db.Model):
         return f"{self.username}-{self.email}"
 
 def create_admin_user():
-    username = 'admin'
-    email = 'admin@example.com'
-    password = generate_password_hash('password123')
-    new_user = User(username=username, email=email, password=password, is_admin=True)
-    db.session.add(new_user)
+    admin_username = 'admin3'
+    admin_email = 'admin3@example.com'
+    admin_password = generate_password_hash('1234')
+    existing_user = User.query.filter_by(email=admin_email).first()
+    if existing_user:
+        return
+    admin_user = User(
+        username=admin_username,
+        email=admin_email,
+        password=admin_password,
+        is_admin=True
+    )
+    db.session.add(admin_user)
     db.session.commit()
 
 class Item(db.Model):
@@ -46,7 +56,7 @@ class Item(db.Model):
     name = db.Column(db.String(100), nullable=False)
     size = db.Column(db.String(20), nullable=False)
     price = db.Column(db.Integer, nullable=False)
-    Quantity = db.Column(db.String(5), nullable=False)
+    quantity = db.Column(db.String(5), nullable=False)
 with app.app_context():
     db.create_all()
 
@@ -132,15 +142,69 @@ def store():
 def about_showroom():
     return render_template('showroom/contacts_showroom.html')
 
-@app.route('/login_showroom')
+@app.route('/login_showroom', methods=['POST', 'GET'])
 def login_showroom():
+    # Check if user is already logged in
+    if session.get('current_user'):
+        return redirect(url_for('store'))
+
     if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
+        # Get form data
+        email = request.form['email']
+        password = request.form.get('password')
+
+        # Check if the user exists
+        user = User.query.filter_by(email=email).first()
+        if user and check_password_hash(user.password, password):
+            # If the password is correct, store the user ID in the session
+            session['current_user'] = user.id
+
+            # Check if the user is an admin
+            if user.is_admin:
+                session['is_admin'] = True
+            else:
+                session['is_admin'] = False
+
+            return redirect(url_for('store'))
+        else:
+            return "Wrong email or password. Please try again."
+
+
     return render_template('showroom/login_showroom.html')
 
+@app.route('/logout')
+def logout():
+    if not session.get('is_admin'):
+        return 'Access denied'
+    # Видаляємо сеансову змінну `current_user`
+    session.pop('current_user', None)
+    # Видаляємо сеансову змінну `is_admin`
+    session.pop('is_admin', None)
+    return redirect(url_for('home'))
 
+
+@app.route('/add_item', methods=['GET', 'POST'])
+def add_item():
+    # Отримуємо дані з форми
+    if request.method == 'POST':
+        name = request.form['name']
+        size = request.form['size']
+        price = int(request.form['price'])
+        quantity = int(request.form['quantity'])
+
+    # Створюємо новий товар
+        item = Item(name=name, size=size, price=price, quantity=quantity)
+
+    # Додаємо товар до бази даних
+        db.session.add(item)
+        db.session.commit()
+
+    # Перенаправляємо користувача на сторінку "/store"
+        return redirect(url_for('store'))
+    else:
+        return render_template('showroom/add_item.html')
 
 
 if __name__ == '__main__':
+    create_admin_user()
     app.run(debug=True)
