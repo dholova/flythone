@@ -57,14 +57,19 @@ class Item(db.Model):
     size = db.Column(db.String(20), nullable=False)
     price = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.String(5), nullable=False)
+    file = db.Column(db.LargeBinary)
 with app.app_context():
     db.create_all()
 
-ALLOWED_EXTENSIONS = {'mp3', 'wav'}  # Дозволені розширення файлів
-
-def allowed_file(filename):
+ALLOWED_EXTENSIONS_STUDIO = {'mp3', 'wav'}  # Дозволені розширення файлів
+ALLOWED_EXTENSIONS_SHOWROOM = {'png', 'jpg', 'jpeg'}
+def allowed_file_studio(filename):
     """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
-    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_STUDIO
+
+def allowed_file_showroom(filename):
+    """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
+    return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_SHOWROOM
 
 
 
@@ -104,7 +109,7 @@ def send_demo():
         file = request.files['file']
         if not file:
             return "File not found in request"
-        if file and allowed_file(file.filename):
+        if file and allowed_file_studio(file.filename):
             file_data = file.read()
             article = SendDemo(name=name, email=email, phone=phone, file=file_data)
             db.session.add(article)
@@ -191,13 +196,21 @@ def add_item():
         size = request.form['size']
         price = int(request.form['price'])
         quantity = int(request.form['quantity'])
+        file = request.files['file']
 
     # Створюємо новий товар
-        item = Item(name=name, size=size, price=price, quantity=quantity)
+        if not file:
+            return "File not found in request"
+        if file and allowed_file_studio(file.filename):
+            file_data = file.read()
+            item = Item(name=name, size=size, price=price, quantity=quantity, file=file)
 
-    # Додаємо товар до бази даних
-        db.session.add(item)
-        db.session.commit()
+            # Додаємо товар до бази даних
+            db.session.add(item)
+            db.session.commit()
+        else:
+            # Якщо файл заборонений, виводимо повідомлення
+            return "File extension not allowed, please select an image file."
 
     # Перенаправляємо користувача на сторінку "/store"
         return redirect(url_for('store'))

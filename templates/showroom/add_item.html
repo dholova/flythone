@@ -10,7 +10,23 @@
         <input type="text" name="size" id="size" class="form-control" placeholder="size" required><br>
         <input type="text" name="price" id="price" class="form-control" placeholder="price" required><br>
         <input type="text" name="quantity" id="quantity" class="form-control" placeholder="quantity" required><br>
-        <input type="submit" class="btn btn-success" value="Додати">
+        <label for="file" class="custom-file-upload" name="file" required>
+            <input type="file" name="file" id="file" required>
+        </label>
+        <style>
+    /* Приховати стандартну кнопку вибору файлу */
+    input[type="file"] {
+display:none;
+    }
+
+    /* Стилізувати кастомну кнопку */
+
+    .custom-file-upload {
+
+    }
+    </style>
+        <input type="submit" class="custom-file-upload" value="Додати">
     </form>
+
 </div>
 {% endblock %}
