@@ -102,6 +102,13 @@
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">доставка</a></li>
             <li class="nav-item mb-2"><a href="/contacts_showroom" class="nav-link p-0 text-muted-#0a33b0">контакти</a></li>
             <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">про нас</a></li>
+              {% if session['is_admin'] %}
+              <li class="nav-item mb-2"><a href="/add_item" class="nav-link p-0 text-muted-#0a33b0">додати товар</a></li>
+              <li class="nav-item mb-2"><a href="/logout" class="nav-link p-0 text-muted-#0a33b0">вийти</a></li>
+              {% else %}
+              <li class="nav-item mb-2"><a href="/login_showroom" class="nav-link p-0 text-muted-#0a33b0">увійти</a></li>
+            {% endif %}
+
           </ul>
         </div>
       </footer>
