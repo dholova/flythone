@@ -201,7 +201,7 @@ def add_item():
     # Створюємо новий товар
         if not file:
             return "File not found in request"
-        if file and allowed_file_studio(file.filename):
+        if file and allowed_file_showroom(file.filename):
             file_data = file.read()
             item = Item(name=name, size=size, price=price, quantity=quantity, file=file)
 
