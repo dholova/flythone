@@ -2,6 +2,7 @@ from flask import Flask, render_template, request, redirect
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
 import magic
+from werkzeug.security import generate_password_hash
 app = Flask(__name__)
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -9,8 +10,8 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'afolenko1991@gmail.com'  # введите свой адрес электронной почты здесь
-app.config['MAIL_PASSWORD'] = 'rhwyscthqxxzvknk'  # введите пароль
+app.config['MAIL_USERNAME'] = 'flythonestudio@gmail.com'  # введите свой адрес электронной почты здесь
+app.config['MAIL_PASSWORD'] = 'kymswmsqdgvkhbhs'  # введите пароль
 db = SQLAlchemy(app)
 mail = Mail(app)
 class SendDemo(db.Model):
@@ -22,6 +23,30 @@ class SendDemo(db.Model):
 
     def __repr__(self):
         return '<SendDemo %r>' % self.id
+class User(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    username = db.Column(db.String(20), nullable=False, unique=True)
+    email = db.Column(db.String(120), nullable=False, unique=True)
+    password = db.Column(db.String(120), nullable=False)
+    is_admin = db.Column(db.Boolean, default=False)
+
+    def __repr__(self):
+        return f"{self.username}-{self.email}"
+
+def create_admin_user():
+    username = 'admin'
+    email = 'admin@example.com'
+    password = generate_password_hash('password123')
+    new_user = User(username=username, email=email, password=password, is_admin=True)
+    db.session.add(new_user)
+    db.session.commit()
+
+class Item(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    size = db.Column(db.String(20), nullable=False)
+    price = db.Column(db.Integer, nullable=False)
+    Quantity = db.Column(db.String(5), nullable=False)
 with app.app_context():
     db.create_all()
 
@@ -74,8 +99,8 @@ def send_demo():
             article = SendDemo(name=name, email=email, phone=phone, file=file_data)
             db.session.add(article)
             db.session.commit()
-            sender = 'afolenko1991@gmail.com'
-            msg = Message('Новий демозапис', sender=sender, recipients=['afolenko1991@gmail.com'])
+            sender = 'flythonestudio@gmail.com'
+            msg = Message('Новий демозапис', sender=sender, recipients=['flythonestudio@gmail.com'])
             msg.body = f"Name: {name}\nEmail: {email}\nPhone: {phone}\nFile: {file.filename}"
             msg.attach(
                 filename=file.filename,
@@ -83,7 +108,7 @@ def send_demo():
                 data=file_data,)
             try:
                 mail.send(msg)
-                return 'Email sent...'
+                return render_template('studio/sent_demo.html')
             except Exception as e:
                 print(e)
                 return 'the email was not sent.'
@@ -95,7 +120,7 @@ def send_demo():
 
 @app.route('/showroom')
 def showroom():
-    return render_template('showroom/about_showroom.html')
+    return render_template('showroom/contacts_showroom.html')
 
 
 @app.route('/store')
@@ -103,9 +128,17 @@ def store():
     return render_template('showroom/store.html')
 
 
-@app.route('/about_showroom')
+@app.route('/contacts_showroom')
 def about_showroom():
-    return render_template('showroom/about_showroom.html')
+    return render_template('showroom/contacts_showroom.html')
+
+@app.route('/login_showroom')
+def login_showroom():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+    return render_template('showroom/login_showroom.html')
+
 
 
 

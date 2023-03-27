@@ -1,0 +1,14 @@
+{% extends 'base_showroom.html' %}
+{% block title %}
+Шоурум
+{% endblock %}
+{% block body %}
+<p class="font-for-titles">увiйти</p>
+<div class="container">
+    <form method="POST" action="/login">
+        <input type="text" name="name" id="username" class="form-control" placeholder="username" required><br>
+        <input type="text" name="phone" id="password" class="form-control" placeholder="password" required><br>
+        <input type="submit" class="btn btn-success" value="Увійти">
+</form>
+</div>
+{% endblock %}

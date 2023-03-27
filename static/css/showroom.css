@@ -44,7 +44,8 @@ body {
     background-color: #fcf8eb;
     float: left;
     margin-right: 5px;
-    padding-right: 90rem!important;
+    padding-right: 80rem!important;
+    border-radius: 14px;
 }
 
 
@@ -71,10 +72,13 @@ color:yellow;
 
 /* Шрифт для заголовків*/
 .font-for-titles {
-    font-size: 46px;
+    font-size: 66px;
 font-family: 'Rampart One', sans-serif;
 color: #343BBF;
 -webkit-text-stroke: 1px white;
+margin-left: 200px;
+
+margin-bottom: 50px;
 }
 
 .font-for-nb {
@@ -101,7 +105,7 @@ font-size: 1px;
 
 }
 a.nav-link {
-font-size: 38px;
+font-size: 30px;
 color: #ba8116;
 
 }
@@ -114,7 +118,10 @@ color: #ba8116;
   height: 100%;
   /*background: #0813ff;*/
   background: #343BBF;
-  border-radius: 80% 0 0 0;
+  border-radius: 100% 0 0 0;
+    display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
   }
 
 /*Кнопка завантажити 1*/
@@ -160,14 +167,9 @@ color: #ba8116;
     }
 
 .position {
- background: 0;
-    float: left;
-
     width: 20%;
-    padding-bottom: 0;
     margin: 1.66%;
-}
-footer {
-
-padding: 0 0 200px 100 px;
+    background-color: white;
+    padding: 10px;
+    border-radius: 14px;
 }
