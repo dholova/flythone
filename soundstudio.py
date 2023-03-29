@@ -229,12 +229,15 @@ def get_image(filename):
     if not item:
         return ''
     return send_file(BytesIO(item.file), mimetype='image/jpeg')  # Вивід зображення у вигляді відповіді сервера
-@app.route('/delete_item', methods=['POST'])
+@app.route('/delete_item', methods=['GET', 'POST'])
 def delete_item():
     item_id = request.form.get('item_id')
     item = Items.query.filter_by(id=item_id).first()
-    db.session.delete(item)
-    db.session.commit()
+    if item is not None:
+        db.session.delete(item)
+        db.session.commit()
+    else:
+        return 'Item not found', 404
     return redirect(url_for('store'))
 @app.route('/edit_item', methods=['POST', 'GET'])
 def edit_item():
@@ -242,39 +245,39 @@ def edit_item():
         return render_template('showroom/edit_item.html')
 
     if request.method == 'POST':
-        item_id = request.args.get('item_id')
+        item_id = request.form.get('item_id')
         item = Items.query.filter_by(id=item_id).first()
+        if item is not None:
+            name = request.form["name"]
+            size = request.form['size']
+            price = int(request.form['price'])
+            quantity = int(request.form['quantity'])
+            if 'file' not in request.files:
+                return 'No file found in request.'
+            file = request.files['file']
 
-        name = request.form['name']
-        size = request.form['size']
-        price = int(request.form['price'])
-        quantity = int(request.form['quantity'])
-        if 'file' not in request.files:
-            return 'No file found in request.'
-        file = request.files['file']
+        # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
+            if file.filename == '':
+                return 'No file selected.'
+            if not allowed_file_showroom(file.filename):
+                return 'File extension not allowed, please select an image file.', 400
 
-    # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
-        if file.filename == '':
-            return 'No file selected.'
-        if not allowed_file_showroom(file.filename):
-            return 'File extension not allowed, please select an image file.', 400
-
-        # Завантаження файлу в базу даних
-        file_data = file.read()
-        item.file = file_data
+            # Завантаження файлу в базу даних
+            file_data = file.read()
+            item.file = file_data
 
 
-        item.name = name
-        item.size = size
-        item.price = price
-        item.quantity = quantity
+            item.name = name
+            item.size = size
+            item.price = price
+            item.quantity = quantity
 
-        db.session.commit()
+            db.session.commit()
 
-        return jsonify({'status': 'success'}), 200
-    #     return redirect(url_for('store'))
-    else:
-        return render_template('showroom/edit_item.html')
+            return jsonify({'status': 'success'}), 200
+        #     return redirect(url_for('store'))
+
+    return render_template('showroom/edit_item.html', item=item)
 
 
 if __name__ == '__main__':
