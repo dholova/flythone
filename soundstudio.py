@@ -1,6 +1,9 @@
-from flask import Flask, render_template, request, redirect, url_for, session
+from io import BytesIO
+
+from flask import Flask, render_template, request, redirect, url_for, session, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
+from flask_migrate import Migrate
 import magic
 from werkzeug.security import generate_password_hash, check_password_hash
 
@@ -15,7 +18,24 @@ app.config['MAIL_USE_SSL'] = False
 app.config['MAIL_USERNAME'] = 'flythonestudio@gmail.com'  # введите свой адрес электронной почты здесь
 app.config['MAIL_PASSWORD'] = 'kymswmsqdgvkhbhs'  # введите пароль
 db = SQLAlchemy(app)
+migrate = Migrate(app, db)
 mail = Mail(app)
+def create_admin_user():
+    admin_username = 'admin3'
+    admin_email = 'admin3@example.com'
+    admin_password = generate_password_hash('1234')
+    existing_user = User.query.filter_by(email=admin_email).first()
+    if existing_user:
+        return
+    admin_user = User(
+        username=admin_username,
+        email=admin_email,
+        password=admin_password,
+        is_admin=True
+    )
+    db.session.add(admin_user)
+    db.session.commit()
+
 class SendDemo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     name = db.Column(db.String(100), nullable=False)
@@ -35,21 +55,6 @@ class User(db.Model):
     def __repr__(self):
         return f"{self.username}-{self.email}"
 
-def create_admin_user():
-    admin_username = 'admin3'
-    admin_email = 'admin3@example.com'
-    admin_password = generate_password_hash('1234')
-    existing_user = User.query.filter_by(email=admin_email).first()
-    if existing_user:
-        return
-    admin_user = User(
-        username=admin_username,
-        email=admin_email,
-        password=admin_password,
-        is_admin=True
-    )
-    db.session.add(admin_user)
-    db.session.commit()
 
 class Item(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -59,10 +64,12 @@ class Item(db.Model):
     quantity = db.Column(db.String(5), nullable=False)
     file = db.Column(db.LargeBinary)
 with app.app_context():
+    create_admin_user()
     db.create_all()
 
 ALLOWED_EXTENSIONS_STUDIO = {'mp3', 'wav'}  # Дозволені розширення файлів
 ALLOWED_EXTENSIONS_SHOWROOM = {'png', 'jpg', 'jpeg'}
+
 def allowed_file_studio(filename):
     """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_STUDIO
@@ -70,7 +77,6 @@ def allowed_file_studio(filename):
 def allowed_file_showroom(filename):
     """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_SHOWROOM
-
 
 
 @app.route('/')
@@ -140,8 +146,13 @@ def showroom():
 
 @app.route('/store')
 def store():
-    return render_template('showroom/store.html')
+    items = Item.query.all()  # Зчитування всіх записів з таблиці Items
+    return render_template('showroom/store.html', item=items)  # Передача списку items у HTML-шаблон
 
+@app.route('/store/<int:id>')
+def store_detail(id):
+    item = Item.query.get(id)  # Зчитування всіх записів з таблиці Items
+    return render_template('showroom/item.html', item=item)
 
 @app.route('/contacts_showroom')
 def about_showroom():
@@ -203,7 +214,7 @@ def add_item():
             return "File not found in request"
         if file and allowed_file_showroom(file.filename):
             file_data = file.read()
-            item = Item(name=name, size=size, price=price, quantity=quantity, file=file)
+            item = Item(name=name, size=size, price=price, quantity=quantity, file=file_data)
 
             # Додаємо товар до бази даних
             db.session.add(item)
@@ -216,8 +227,106 @@ def add_item():
         return redirect(url_for('store'))
     else:
         return render_template('showroom/add_item.html')
+@app.route('/get_image/<filename>')
+def get_image(filename):
+    item = Item.query.filter_by(id=filename).first()
+    if not item:
+        return ''
+    return send_file(BytesIO(item.file), mimetype='image/jpeg')  # Вивід зображення у вигляді відповіді сервера
+@app.route('/delete_item', methods=['GET', 'POST'])
+def delete_item():
+    item_id = request.form.get('item_id')
+    item = Item.query.filter_by(id=item_id).first()
+    if item is not None:
+        db.session.delete(item)
+        db.session.commit()
+    else:
+        return 'Item not found', 404
+    return redirect(url_for('store'))
+# @app.route('/edit_item', methods=['POST', 'GET'])
+# def edit_item():
+#     if request.method == 'GET':
+#         return render_template('showroom/edit_item.html')
+#
+#     if request.method == 'POST':
+#         item_id = request.form.get('item_id')
+#         item = Items.query.filter_by(id=item_id).first()
+#         if item is not None:
+#             name = request.form["name"]
+#             size = request.form['size']
+#             price = int(request.form['price'])
+#             quantity = int(request.form['quantity'])
+#             if 'file' not in request.files:
+#                 return 'No file found in request.'
+#             file = request.files['file']
+#
+#         # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
+#             if file.filename == '':
+#                 return 'No file selected.'
+#             if not allowed_file_showroom(file.filename):
+#                 return 'File extension not allowed, please select an image file.', 400
+#
+#             # Завантаження файлу в базу даних
+#             file_data = file.read()
+#             item.file = file_data
+#
+#
+#             item.name = name
+#             item.size = size
+#             item.price = price
+#             item.quantity = quantity
+#
+#             db.session.commit()
+#
+#             return jsonify({'status': 'success'}), 200
+#         #     return redirect(url_for('store'))
+#
+#     return render_template('showroom/edit_item.html', item=item)
 
+
+@app.route('/edit_item', methods=['POST', 'GET'])
+def edit_item():
+    item_id = request.form.get('item_id')
+    item = Item.query.filter_by(id=item_id).first()
+    if request.method == 'POST':
+        # item_id = request.form.get('item_id')
+        # item = Items.query.filter_by(id=item_id).first()
+        # if item is not None:
+        item.name = request.form["name"]
+        item.size = request.form['size']
+        item.price = int(request.form['price'])
+        item.quantity = int(request.form['quantity'])
+        # if 'file' not in request.files:
+        #     return 'No file found in request.'
+        item.file = request.files['file']
+
+        # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
+        #     if file.filename == '':
+        #         return 'No file selected.'
+        #     if not allowed_file_showroom(file.filename):
+        #         return 'File extension not allowed, please select an image file.', 400
+
+            # Завантаження файлу в базу даних
+            # file_data = file.read()
+            # item.file = file_data
+
+
+            # item.name = name
+            # item.size = size
+            # item.price = price
+            # item.quantity = quantity
+        try:
+
+            db.session.commit()
+            return redirect('/store')
+        except:
+            return 'Помилка'
+            # return jsonify({'status': 'success'}), 200
+        #     return redirect(url_for('store'))
+    else:
+
+        return render_template('showroom/edit_item.html', item=item)
 
 if __name__ == '__main__':
-    create_admin_user()
+
     app.run(debug=True)
