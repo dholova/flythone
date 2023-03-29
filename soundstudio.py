@@ -1,5 +1,4 @@
 from io import BytesIO
-
 from flask import Flask, render_template, request, redirect, url_for, session, send_file, jsonify
 from flask_sqlalchemy import SQLAlchemy
 from flask_mail import Mail, Message
@@ -188,6 +187,7 @@ def login_showroom():
 
     return render_template('showroom/login_showroom.html')
 
+
 @app.route('/logout')
 def logout():
     if not session.get('is_admin'):
@@ -227,12 +227,16 @@ def add_item():
         return redirect(url_for('store'))
     else:
         return render_template('showroom/add_item.html')
+
+
 @app.route('/get_image/<filename>')
 def get_image(filename):
     item = Item.query.filter_by(id=filename).first()
     if not item:
         return ''
     return send_file(BytesIO(item.file), mimetype='image/jpeg')  # Вивід зображення у вигляді відповіді сервера
+
+
 @app.route('/delete_item', methods=['GET', 'POST'])
 def delete_item():
     item_id = request.form.get('item_id')
@@ -243,86 +247,27 @@ def delete_item():
     else:
         return 'Item not found', 404
     return redirect(url_for('store'))
-# @app.route('/edit_item', methods=['POST', 'GET'])
-# def edit_item():
-#     if request.method == 'GET':
-#         return render_template('showroom/edit_item.html')
-#
-#     if request.method == 'POST':
-#         item_id = request.form.get('item_id')
-#         item = Items.query.filter_by(id=item_id).first()
-#         if item is not None:
-#             name = request.form["name"]
-#             size = request.form['size']
-#             price = int(request.form['price'])
-#             quantity = int(request.form['quantity'])
-#             if 'file' not in request.files:
-#                 return 'No file found in request.'
-#             file = request.files['file']
-#
-#         # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
-#             if file.filename == '':
-#                 return 'No file selected.'
-#             if not allowed_file_showroom(file.filename):
-#                 return 'File extension not allowed, please select an image file.', 400
-#
-#             # Завантаження файлу в базу даних
-#             file_data = file.read()
-#             item.file = file_data
-#
-#
-#             item.name = name
-#             item.size = size
-#             item.price = price
-#             item.quantity = quantity
-#
-#             db.session.commit()
-#
-#             return jsonify({'status': 'success'}), 200
-#         #     return redirect(url_for('store'))
-#
-#     return render_template('showroom/edit_item.html', item=item)
 
 
-@app.route('/edit_item', methods=['POST', 'GET'])
-def edit_item():
-    item_id = request.form.get('item_id')
-    item = Item.query.filter_by(id=item_id).first()
+@app.route('/store/<int:id>/edit', methods=['POST', 'GET'])
+def edit_item(id):
+    item = Item.query.get(id)
     if request.method == 'POST':
-        # item_id = request.form.get('item_id')
-        # item = Items.query.filter_by(id=item_id).first()
-        # if item is not None:
+        if 'file' in request.files: # перевірка, чи існує файл у запиті
+            file = request.files['file']
+    # перевірка дозволених розширень файлу
+            if file and allowed_file_showroom(file.filename):
+                file_data = file.read() # завантаження даних файлу в базу даних
+        item.file = file_data
         item.name = request.form["name"]
         item.size = request.form['size']
         item.price = int(request.form['price'])
         item.quantity = int(request.form['quantity'])
-        # if 'file' not in request.files:
-        #     return 'No file found in request.'
-        item.file = request.files['file']
-
-        # Перевіряємо, чи файл дійсний і містить допустиме розширення файлу.
-        #     if file.filename == '':
-        #         return 'No file selected.'
-        #     if not allowed_file_showroom(file.filename):
-        #         return 'File extension not allowed, please select an image file.', 400
-
-            # Завантаження файлу в базу даних
-            # file_data = file.read()
-            # item.file = file_data
-
-
-            # item.name = name
-            # item.size = size
-            # item.price = price
-            # item.quantity = quantity
         try:
-
             db.session.commit()
             return redirect('/store')
-        except:
-            return 'Помилка'
-            # return jsonify({'status': 'success'}), 200
-        #     return redirect(url_for('store'))
+        except Exception as err:
+            return err
     else:
 
         return render_template('showroom/edit_item.html', item=item)
