@@ -8,14 +8,16 @@
 
     {% for item in item %}
     <div class="item">
+        <img src="{{ url_for('get_image', filename=item.id) }}" alt="Item Image" class="position"><br>
         <h3>{{ item.name }}</h3>
         <p><strong>Price:</strong> {{ item.price }} $</p>
-        <img src="{{ url_for('get_image', filename=item.id) }}" alt="Item Image">
         <a href="/store/{{ item.id }}" class="btn btn-warning">Переглянути товар</a>
+        {% if session['is_admin'] %}
         <form action="{{ url_for('delete_item') }}" method="POST">
             <input type="hidden" name="item_id" value="{{item.id}}">
             <button type="submit">Remove</button>
         </form>
+        {% endif %}
 
     </div>
     {% endfor %}

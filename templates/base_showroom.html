@@ -47,35 +47,18 @@
       </div>
         <div class="topnavbar">
             <ul class="nav nav-pills">
-        <li class="nav-item"><a href="#" class="nav-link" aria-current="page">шоурум</a></li>
+<!--        <li class="nav-item"><a href="/showroom" class="nav-link" aria-current="page">шоурум</a></li>-->
         <li class="nav-item"><a href="/store" class="nav-link" aria-current="page">стор</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">делiверi</a></li>
+        <li class="nav-item"><a href="/delivery_showroom" class="nav-link">делiверi</a></li>
         <li class="nav-item"><a href="/contacts_showroom" class="nav-link">контактc</a></li>
-        <li class="nav-item"><a href="#" class="nav-link">ебаут</a></li>
-      </ul>
+        <li class="nav-item"><a href="/about_showroom" class="nav-link">ебаут</a></li>
+                <li class="nav-item"><a href="/cart" class="nav-link">бай</a></li>
+
+            </ul>
+
             </div>
+
     </header>
-<!--  </div>-->
-<!--<header class="d-flex flex-wrap align-items-center justify-content-center justify-content-md-between py-3 mb-4 border-bottom">-->
-
-<!--        <div class="px-3 py-2 text-bg-white">-->
-
-<!--                   <div class="topnavbar">-->
-
-<!--                        <div class="text-top">-->
-
-<!--      <ul class="nav col-12 col-md-auto mb-2 justify-content-center mb-md-0">-->
-<!--        <li><a href="#" class="nav-link px-2 link-secondary">Шоурум</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2 link-dark">Доставка</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2 link-dark">Контакти</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2 link-dark">Про нас</a></li>-->
-<!--        <li><a href="#" class="nav-link px-2 link-dark">Запитання</a></li>-->
-<!--      </ul>-->
-<!--</div>-->
-<!--        </div>-->
-<!--                                   </div>-->
-
-<!--    </header>-->
 
         <div class="main-content">
     {% block body %}{% endblock %}
@@ -88,20 +71,14 @@
           <p class="text-muted">© 2023</p>
         </div>
 
-<!--        <div class="col mb-3">-->
-
-<!--        </div>-->
-
-
-
         <div class="col mb-3">
           <p class="font-for-eq">Навігація</p>
           <ul class="nav flex-column">
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">шоурум</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">стор</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">доставка</a></li>
+<!--            <li class="nav-item mb-2"><a href="/showroom" class="nav-link p-0 text-muted-#0a33b0">шоурум</a></li>-->
+            <li class="nav-item mb-2"><a href="/store" class="nav-link p-0 text-muted-#0a33b0">стор</a></li>
+            <li class="nav-item mb-2"><a href="/delivery_showroom" class="nav-link p-0 text-muted-#0a33b0">доставка</a></li>
             <li class="nav-item mb-2"><a href="/contacts_showroom" class="nav-link p-0 text-muted-#0a33b0">контакти</a></li>
-            <li class="nav-item mb-2"><a href="#" class="nav-link p-0 text-muted-#0a33b0">про нас</a></li>
+            <li class="nav-item mb-2"><a href="/about_showroom" class="nav-link p-0 text-muted-#0a33b0">про нас</a></li>
               {% if session['is_admin'] %}
               <li class="nav-item mb-2"><a href="/add_item" class="nav-link p-0 text-muted-#0a33b0">додати товар</a></li>
               <li class="nav-item mb-2"><a href="/logout" class="nav-link p-0 text-muted-#0a33b0">вийти</a></li>
@@ -113,47 +90,6 @@
         </div>
       </footer>
 
-<!--<div class="sidebar">-->
-<!--    <a href="/" class="d-flex align-items-center mb-3 mb-md-0 me-md-auto text-white text-decoration-none">-->
-<!--      <svg class="bi pe-none me-2" width="40" height="32"><use xlink:href="#bootstrap"></use></svg>-->
-<!--&lt;!&ndash;      <span class="fs-4">Меню простору</span>&ndash;&gt;-->
-<!--&lt;!&ndash;        <a href="/"> <img src="{{ url_for('static', filename='img/logo.png') }}" alt="" width="152" height="92"> </a>&ndash;&gt;-->
-<!--    </a>-->
-<!--    <hr>-->
-<!--    <ul class="nav nav-pills flex-column mb-auto">-->
-<!--      <li class="nav-item">-->
-<!--  <a href="{{ url_for('studio') }}" class="nav-link {% if request.path == url_for('studio') %}active{% else %}text-#0813ff{% endif %}">-->
-<!--          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#home"></use></svg>-->
-<!--          Студія-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li>-->
-<!--  <a href="{{ url_for('equipment') }}" class="nav-link {% if request.path == url_for('equipment') %}active{% else %}text-#0a33b0{% endif %}">-->
-<!--          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#speedometer2"></use></svg>-->
-<!--          Обладнання-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li>-->
-<!--        <a href="{{ url_for('works') }}" class="nav-link {% if request.path == url_for('works') %}active{% else %}text-#0813ff{% endif %}">-->
-<!--          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#table"></use></svg>-->
-<!--          Наші роботи-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li>-->
-<!--        <a href="{{ url_for('price') }}" class="nav-link {% if request.path == url_for('price') %}active{% else %}text-#0a33b0{% endif %}">-->
-<!--          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#grid"></use></svg>-->
-<!--          Ціни-->
-<!--        </a>-->
-<!--      </li>-->
-<!--      <li>-->
-<!--        <a href="{{ url_for('contacts') }}" class="nav-link {% if request.path == url_for('contacts') %}active{% else %}text-#0a33b0{% endif %}">-->
-<!--          <svg class="bi pe-none me-2" width="16" height="16"><use xlink:href="#people-circle"></use></svg>-->
-<!--          Контакти-->
-<!--        </a>-->
-<!--      </li>-->
-<!--    </ul>-->
-<!--    <hr>-->
-<!--</div>-->
 
 </body>
 </html>
