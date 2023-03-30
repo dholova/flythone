@@ -1,0 +1,40 @@
+{% extends 'base_showroom.html' %}
+{% block title %}
+Бай
+{% endblock %}
+{% block body %}
+
+  <h1>Корзина товарів</h1>
+  {% if items %}
+    <table>
+      <thead>
+        <tr>
+          <th>Назва</th>
+          <th>Ціна</th>
+          <th>Кількість</th>
+          <th>Загальна вартість</th>
+          <th>Видалити</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for item in items %}
+          <tr>
+            <td>{{ item.name }}</td>
+            <td>{{ item.price }} грн.</td>
+            <td>{{ cart[item.id] }}</td>
+            <td>{{ item.price * cart.get(item.id, 0) }} грн.</td>
+            <td><a href="{{ url_for('remove_from_cart', item_id=item.id) }}">Видалити</a></td>
+          </tr>
+        {% endfor %}
+        <tr>
+          <td colspan="3"><strong>Загальна вартість:</strong></td>
+          <td><strong>{{ total_price }} грн.</strong></td>
+          <td></td>
+        </tr>
+      </tbody>
+    </table>
+    <a href="{{ url_for('checkout') }}">Оформити замовлення</a>
+  {% else %}
+    <p>Ви не маєте жодного товару у корзині.</p>
+  {% endif %}
+{% endblock %}

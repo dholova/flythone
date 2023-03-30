@@ -7,6 +7,8 @@ import magic
 from werkzeug.security import generate_password_hash, check_password_hash
 
 app = Flask(__name__)
+app.config['SESSION_TYPE'] = 'filesystem'
+app.config['SESSION_IGNORE_EXCEPTIONS'] = True
 app.secret_key = 'my_secret_key'
 app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///demos.db'
 app.config['SQLALCHEMY_TRACK_MODIFICATIONS'] = False
@@ -138,9 +140,13 @@ def send_demo():
     else:
         return render_template('studio/send_demo.html')
 
-@app.route('/showroom')
-def showroom():
+@app.route('/contacts_showroom')
+def contacts_showroom():
     return render_template('showroom/contacts_showroom.html')
+
+@app.route('/about_showroom')
+def about_showroom():
+    return render_template('showroom/about_showroom.html')
 
 
 @app.route('/store')
@@ -153,9 +159,16 @@ def store_detail(id):
     item = Item.query.get(id)  # Зчитування всіх записів з таблиці Items
     return render_template('showroom/item.html', item=item)
 
-@app.route('/contacts_showroom')
-def about_showroom():
-    return render_template('showroom/contacts_showroom.html')
+
+@app.route('/showroom')
+def showroom():
+    return render_template('showroom/showroom.html')
+
+
+@app.route('/delivery_showroom')
+def delivery_showroom():
+    return render_template('showroom/delivery_showroom.html')
+
 
 @app.route('/login_showroom', methods=['POST', 'GET'])
 def login_showroom():
@@ -271,6 +284,43 @@ def edit_item(id):
     else:
 
         return render_template('showroom/edit_item.html', item=item)
+
+
+
+# Маршрут для додавання товару до корзини
+@app.route('/add-to-cart/<int:item_id>', methods=['POST', 'GET'])
+def add_to_cart(item_id):
+    # отримання корзини з сесії або створення нової корзини
+    cart = session.get('cart', {})
+    # додавання товару до корзини
+    cart[item_id] = cart.get(item_id, 0) + 1
+    # збереження корзини в сесії
+    session['cart'] = cart
+    return redirect('/cart')
+
+# Маршрут для видалення товару з корзини
+@app.route('/remove-from-cart/<int:item_id>', methods=['POST', 'GET'])
+def remove_from_cart(item_id):
+    # отримання корзини з сесії
+    cart = session.get('cart', {})
+    # видалення товару з корзини
+    if item_id in cart:
+        del cart[item_id]
+    # збереження корзини в сесії
+    session['cart'] = cart
+    return redirect('/cart')
+
+# Маршрут для відображення корзини
+@app.route('/cart')
+def cart():
+    # отримання корзини з сесії
+    cart = session.get('cart', {})
+    # отримання товарів з бази даних (наприклад, з моделі товару)
+    items = Item.query.filter(Item.id.in_(cart.keys())).all()
+    # обчислення загальної вартості товарів у корзині
+    total_price = sum(item.price * cart[str(item.id)] for item in items)
+    return render_template('showroom/cart.html', items=items, cart=cart, total_price=total_price)
+
 
 if __name__ == '__main__':
 
