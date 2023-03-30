@@ -167,8 +167,9 @@ color: #ba8116;
     }
 
 .position {
-    width: 20%;
-    margin: 1.66%;
+    width: 50%;
+    margin-top: 3.66%;
+    margin-bottom: 5.66%;
     background-color: white;
     padding: 10px;
     border-radius: 14px;
