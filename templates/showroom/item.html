@@ -9,9 +9,10 @@
     <div class="item">
         <h3>{{ item.name }}</h3>
         <p><strong>Price:</strong> {{ item.price }} $</p>
-        <p><strong>Size:</strong> {{ item.size }}</p>
-        <p><strong>Quantity:</strong> {{ item.quantity }}</p>
+<!--        <p><strong>Size:</strong> {{ item.size }}</p>-->
+<!--        <p><strong>Quantity:</strong> {{ item.quantity }}</p>-->
         <img src="{{ url_for('get_image', filename=item.id) }}" alt="Item Image">
+        {% if session['is_admin'] %}
         <form action="{{ url_for('delete_item') }}" method="POST">
             <input type="hidden" name="item_id" value="{{item.id}}">
             <button type="submit">Remove</button>
@@ -20,6 +21,11 @@
                 <a href="/store/{{ item.id }}/edit">Edit</a>
             <button type="submit">Edit</button>
         </form>
+        {% endif %}
+          <form action="{{ url_for('add_to_cart', item_id=item.id) }}" method="POST">
+    <input type="hidden" name="item_id" value="{{ item.id }}">
+    <button type="submit">Додати до корзини</button>
+  </form>
     </div>
 
 </div>
