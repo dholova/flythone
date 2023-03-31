@@ -64,6 +64,18 @@ class Item(db.Model):
     price = db.Column(db.Integer, nullable=False)
     quantity = db.Column(db.String(5), nullable=False)
     file = db.Column(db.LargeBinary)
+
+
+class DeliveryShowroom(db.Model):
+    id = db.Column(db.Integer, primary_key=True)
+    name = db.Column(db.String(100), nullable=False)
+    surname = db.Column(db.String(100), nullable=False)
+    email = db.Column(db.String(300), nullable=False)
+    phone = db.Column(db.Text, nullable=False)
+    city = db.Column(db.String(100), nullable=False)
+    post_office_or_adress = db.Column(db.String(300), nullable=False)
+
+
 with app.app_context():
     create_admin_user()
     db.create_all()
@@ -152,7 +164,7 @@ def about_showroom():
 @app.route('/store')
 def store():
     items = Item.query.all()  # Зчитування всіх записів з таблиці Items
-    return render_template('showroom/store.html', item=items)  # Передача списку items у HTML-шаблон
+    return render_template('showroom/store.html', items=items)  # Передача списку items у HTML-шаблон
 
 @app.route('/store/<int:id>')
 def store_detail(id):
@@ -288,7 +300,7 @@ def edit_item(id):
 
 
 # Маршрут для додавання товару до корзини
-@app.route('/add-to-cart/<int:item_id>', methods=['POST', 'GET'])
+@app.route('/add-to-cart/<item_id>', methods=['POST', 'GET'])
 def add_to_cart(item_id):
     # отримання корзини з сесії або створення нової корзини
     cart = session.get('cart', {})
@@ -299,13 +311,16 @@ def add_to_cart(item_id):
     return redirect('/cart')
 
 # Маршрут для видалення товару з корзини
-@app.route('/remove-from-cart/<int:item_id>', methods=['POST', 'GET'])
+@app.route('/remove-from-cart/<item_id>', methods=['POST', 'GET'])
 def remove_from_cart(item_id):
     # отримання корзини з сесії
     cart = session.get('cart', {})
     # видалення товару з корзини
     if item_id in cart:
-        del cart[item_id]
+        if cart[item_id] > 1:
+            cart[item_id] -= 1
+        else:
+            del cart[item_id]
     # збереження корзини в сесії
     session['cart'] = cart
     return redirect('/cart')
@@ -320,6 +335,12 @@ def cart():
     # обчислення загальної вартості товарів у корзині
     total_price = sum(item.price * cart[str(item.id)] for item in items)
     return render_template('showroom/cart.html', items=items, cart=cart, total_price=total_price)
+
+
+@app.route('/checkout_showroom')
+def checkout_showroom():
+    return render_template('showroom/checkout_showroom.html')
+
 
 
 if __name__ == '__main__':
