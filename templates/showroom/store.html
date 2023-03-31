@@ -1,12 +1,12 @@
 {% extends 'base_showroom.html' %}
 {% block title %}
-Шоурум
+Стор
 {% endblock %}
 {% block body %}
 <p class="font-for-titles">Стор</p>
 <div class="container">
 
-    {% for item in item %}
+    {% for item in items %}
     <div class="item">
         <img src="{{ url_for('get_image', filename=item.id) }}" alt="Item Image" class="position"><br>
         <h3>{{ item.name }}</h3>
