@@ -107,7 +107,10 @@ font-size: 1px;
 a.nav-link {
 font-size: 30px;
 color: #ba8116;
-
+}
+footer {
+margin-left: 200px;
+background-color: #fcf8eb;
 }
 
 /* не знаю поки шо*/
@@ -123,6 +126,7 @@ color: #ba8116;
   flex-wrap: wrap;
   justify-content: space-between;
   }
+
 
 /*Кнопка завантажити 1*/
 
