@@ -339,7 +339,12 @@ def cart():
 
 @app.route('/checkout_showroom')
 def checkout_showroom():
-    return render_template('showroom/checkout_showroom.html')
+    cart = session.get('cart', {})
+    # отримання товарів з бази даних (наприклад, з моделі товару)
+    items = Item.query.filter(Item.id.in_(cart.keys())).all()
+    # обчислення загальної вартості товарів у корзині
+    total_price = sum(item.price * cart[str(item.id)] for item in items)
+    return render_template('showroom/checkout_showroom.html', items=items, cart=cart, total_price=total_price)
 
 
 

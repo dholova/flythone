@@ -28,7 +28,15 @@
         <input type="submit" class="custom-file-upload" value="Відправити">
     </form>
     </div>
-    </div>
+<div class="checkout-item">
+    {% for item in items %}
+    <span>{{ item.name }}</span>
+    <span>{{ item.price }} грн.</span><br>
+
+            К-сть{{ cart[item.id|string] }}<br>
+            {{ item.price * cart.get(item.id, cart[item.id|string]) }} грн.<br>
+    {% endfor %}
+</div>
 
 <!--</div>-->
 </body>
