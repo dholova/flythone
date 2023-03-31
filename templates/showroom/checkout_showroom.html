@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/checkout.css') }}">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.3/dist/css/bootstrap.min.css">
+    <title>{% block title %}{% endblock %}</title>
+    <style>
+  body {
+    background-color: #fcf8eb;
+    background-repeat: no-repeat;
+    background-size: cover;
+  }
+</style>
+</head>
+<body>
+<a href="/" class="logo"><img src="{{ url_for('static', filename='img/showroom/flythone_clo_logo.png') }}" alt="" width="152" height="92"></a>
+    <div class="cart-container">
+    <p class="font-for-titles">Оформити замовлення</p>
+        <div class="form"></div>
+    <form method="POST" action="/send_demo" enctype="multipart/form-data">
+        <input type="text" name="name" id="name" class="form-control" placeholder="Ім'я" required><br>
+        <input type="text" name="surname" id="surname" class="form-control" placeholder="Прізвище" required><br>
+        <input type="text" name="phone" id="phone" class="form-control" placeholder="Телефон" required><br>
+        <input type="text" name="email" id="email" class="form-control" placeholder="Електронна пошта"required ><br>
+        <input type="text" name="city" id="city" class="form-control" placeholder="Місто" required><br>
+        <input type="text" name="post_office_or_adress" id="post_office_or_adress" class="form-control" placeholder="Поштове відділення/адреса доставки" required><br>
+        <input type="submit" class="custom-file-upload" value="Відправити">
+    </form>
+    </div>
+    </div>
+
+<!--</div>-->
+</body>
+</html>
