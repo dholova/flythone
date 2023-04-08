@@ -16,8 +16,8 @@ app.config['MAIL_SERVER'] = 'smtp.googlemail.com'
 app.config['MAIL_PORT'] = 587
 app.config['MAIL_USE_TLS'] = True
 app.config['MAIL_USE_SSL'] = False
-app.config['MAIL_USERNAME'] = 'flythonestudio@gmail.com'  # введите свой адрес электронной почты здесь
-app.config['MAIL_PASSWORD'] = 'kymswmsqdgvkhbhs'  # введите пароль
+app.config['MAIL_USERNAME'] = 'flythonestudio@gmail.com'  
+app.config['MAIL_PASSWORD'] = 'kymswmsqdgvkhbhs' 
 db = SQLAlchemy(app)
 migrate = Migrate(app, db)
 mail = Mail(app)
@@ -80,15 +80,13 @@ with app.app_context():
     create_admin_user()
     db.create_all()
 
-ALLOWED_EXTENSIONS_STUDIO = {'mp3', 'wav'}  # Дозволені розширення файлів
+ALLOWED_EXTENSIONS_STUDIO = {'mp3', 'wav'}  
 ALLOWED_EXTENSIONS_SHOWROOM = {'png', 'jpg', 'jpeg'}
 
 def allowed_file_studio(filename):
-    """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_STUDIO
 
 def allowed_file_showroom(filename):
-    """Перевіряє, чи є файл з даним ім'ям дозволеним за його розширенням."""
     return '.' in filename and filename.rsplit('.', 1)[1].lower() in ALLOWED_EXTENSIONS_SHOWROOM
 
 
@@ -147,7 +145,6 @@ def send_demo():
                 print(e)
                 return 'the email was not sent.'
         else:
-            # Якщо файл заборонений, виводимо повідомлення
             return "File extension not allowed, please select an MP3 or WAV file."
     else:
         return render_template('studio/send_demo.html')
@@ -163,12 +160,12 @@ def about_showroom():
 
 @app.route('/store')
 def store():
-    items = Item.query.all()  # Зчитування всіх записів з таблиці Items
-    return render_template('showroom/store.html', items=items)  # Передача списку items у HTML-шаблон
+    items = Item.query.all()  
+    return render_template('showroom/store.html', items=items)  
 
 @app.route('/store/<int:id>')
 def store_detail(id):
-    item = Item.query.get(id)  # Зчитування всіх записів з таблиці Items
+    item = Item.query.get(id)  
     return render_template('showroom/item.html', item=item)
 
 
@@ -184,22 +181,17 @@ def delivery_showroom():
 
 @app.route('/login_showroom', methods=['POST', 'GET'])
 def login_showroom():
-    # Check if user is already logged in
     if session.get('current_user'):
         return redirect(url_for('store'))
 
     if request.method == 'POST':
-        # Get form data
         email = request.form['email']
         password = request.form.get('password')
 
-        # Check if the user exists
         user = User.query.filter_by(email=email).first()
         if user and check_password_hash(user.password, password):
-            # If the password is correct, store the user ID in the session
             session['current_user'] = user.id
 
-            # Check if the user is an admin
             if user.is_admin:
                 session['is_admin'] = True
             else:
@@ -217,16 +209,13 @@ def login_showroom():
 def logout():
     if not session.get('is_admin'):
         return 'Access denied'
-    # Видаляємо сеансову змінну `current_user`
     session.pop('current_user', None)
-    # Видаляємо сеансову змінну `is_admin`
     session.pop('is_admin', None)
     return redirect(url_for('home'))
 
 
 @app.route('/add_item', methods=['GET', 'POST'])
 def add_item():
-    # Отримуємо дані з форми
     if request.method == 'POST':
         name = request.form['name']
         size = request.form['size']
@@ -234,21 +223,17 @@ def add_item():
         quantity = int(request.form['quantity'])
         file = request.files['file']
 
-    # Створюємо новий товар
         if not file:
             return "File not found in request"
         if file and allowed_file_showroom(file.filename):
             file_data = file.read()
             item = Item(name=name, size=size, price=price, quantity=quantity, file=file_data)
 
-            # Додаємо товар до бази даних
             db.session.add(item)
             db.session.commit()
         else:
-            # Якщо файл заборонений, виводимо повідомлення
             return "File extension not allowed, please select an image file."
 
-    # Перенаправляємо користувача на сторінку "/store"
         return redirect(url_for('store'))
     else:
         return render_template('showroom/add_item.html')
@@ -259,7 +244,7 @@ def get_image(filename):
     item = Item.query.filter_by(id=filename).first()
     if not item:
         return ''
-    return send_file(BytesIO(item.file), mimetype='image/jpeg')  # Вивід зображення у вигляді відповіді сервера
+    return send_file(BytesIO(item.file), mimetype='image/jpeg')  
 
 
 @app.route('/delete_item', methods=['GET', 'POST'])
@@ -278,11 +263,10 @@ def delete_item():
 def edit_item(id):
     item = Item.query.get(id)
     if request.method == 'POST':
-        if 'file' in request.files: # перевірка, чи існує файл у запиті
+        if 'file' in request.files:
             file = request.files['file']
-    # перевірка дозволених розширень файлу
             if file and allowed_file_showroom(file.filename):
-                file_data = file.read() # завантаження даних файлу в базу даних
+                file_data = file.read() 
         item.file = file_data
         item.name = request.form["name"]
         item.size = request.form['size']
@@ -299,40 +283,28 @@ def edit_item(id):
 
 
 
-# Маршрут для додавання товару до корзини
 @app.route('/add-to-cart/<item_id>', methods=['POST', 'GET'])
 def add_to_cart(item_id):
-    # отримання корзини з сесії або створення нової корзини
     cart = session.get('cart', {})
-    # додавання товару до корзини
     cart[item_id] = cart.get(item_id, 0) + 1
-    # збереження корзини в сесії
     session['cart'] = cart
     return redirect('/cart')
 
-# Маршрут для видалення товару з корзини
 @app.route('/remove-from-cart/<item_id>', methods=['POST', 'GET'])
 def remove_from_cart(item_id):
-    # отримання корзини з сесії
     cart = session.get('cart', {})
-    # видалення товару з корзини
     if item_id in cart:
         if cart[item_id] > 1:
             cart[item_id] -= 1
         else:
             del cart[item_id]
-    # збереження корзини в сесії
     session['cart'] = cart
     return redirect('/cart')
 
-# Маршрут для відображення корзини
 @app.route('/cart')
 def cart():
-    # отримання корзини з сесії
     cart = session.get('cart', {})
-    # отримання товарів з бази даних (наприклад, з моделі товару)
     items = Item.query.filter(Item.id.in_(cart.keys())).all()
-    # обчислення загальної вартості товарів у корзині
     total_price = sum(item.price * cart[str(item.id)] for item in items)
     return render_template('showroom/cart.html', items=items, cart=cart, total_price=total_price)
 
@@ -340,9 +312,7 @@ def cart():
 @app.route('/checkout_showroom')
 def checkout_showroom():
     cart = session.get('cart', {})
-    # отримання товарів з бази даних (наприклад, з моделі товару)
     items = Item.query.filter(Item.id.in_(cart.keys())).all()
-    # обчислення загальної вартості товарів у корзині
     total_price = sum(item.price * cart[str(item.id)] for item in items)
     return render_template('showroom/checkout_showroom.html', items=items, cart=cart, total_price=total_price)
 
